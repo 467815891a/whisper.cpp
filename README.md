@@ -88,6 +88,17 @@ cmake --build build -j --config Release
 
 ---
 
+### For Windows to enable Vulkan and Openblas support (Run commands in x64 Native Tools Command Prompt for VS)
+```
+:下载VULKAN_SDK并安装，注意替换下面版本号
+set VULKAN_SDK=C:\VulkanSDK\1.4.341.1
+:下载Openblas并解压到当前目录，https://github.com/OpenMathLib/OpenBLAS/releases/
+set OPENBLAS_PATH=%cd%\openblas
+set GGML_OPENBLAS=1
+cmake -B build -DBUILD_SHARED_LIBS=OFF -DGGML_VULKAN=ON -DGGML_NATIVE=OFF -DGGML_CCACHE=OFF -DCMAKE_BUILD_TYPE=Release -DGGML_STATIC=ON -DCMAKE_EXE_LINKER_FLAGS="-static"
+cmake --build build --config Release
+```
+
 For a quick demo, simply run `make base.en`.
 
 The command downloads the `base.en` model converted to custom `ggml` format and runs the inference on all `.wav` samples in the folder `samples`.
